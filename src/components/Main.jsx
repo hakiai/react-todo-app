@@ -6,6 +6,25 @@ import MainArea from './MainArea';
 export default class Main extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      member: [
+        {
+          name: '吐合',
+          todos: [
+            '朝起きる',
+            '昼寝る'
+          ]
+        },
+        {
+          name: '友紀',
+          todos: [
+            '勉強する',
+            '昼食う',
+          ]
+        },
+      ]
+
+    }
   }
 
   render() {

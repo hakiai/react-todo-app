@@ -9,7 +9,7 @@ export default class SideBar extends React.Component {
   render() {
     return (
       <SideArea>
-        <label>新規グループ：<input type="text" placeholder="グループ名"></input></label>
+        <label>新規メンバー：<input type="text" placeholder="メンバー名"></input></label>
         <button>追加</button>
         <GroupList>
           <Group>
