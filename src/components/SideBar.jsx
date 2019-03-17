@@ -4,27 +4,39 @@ import styled from 'styled-components';
 export default class SideBar extends React.Component {
   constructor(props) {
     super(props);
+    console.log(this.props.changeCurrentMember);
+  }
+
+  renderTodo() {
+    const displayMember = [];
+    this.props.members.forEach((member, key) => {
+      displayMember.push(
+        <li key={key} onClick={this.onClickMember.bind(this)}>
+          {member}
+        </li>
+      );
+    });
+    return displayMember;
+  }
+
+  onClickAddMemberButton() {
+    const newMemberName = document.getElementById('newMember');
+    this.props.addNewMember(newMemberName.value);
+    newMemberName.value = "";
+  }
+
+  onClickMember(event) {
+    this.props.changeCurrentMember(event.target.innerHTML);
   }
 
   render() {
     return (
       <SideArea>
-        <label>新規メンバー：<input type="text" placeholder="メンバー名"></input></label>
-        <button>追加</button>
-        <GroupList>
-          <Group>
-            吐合
-          </Group>
-          <Group>
-            友紀
-          </Group>
-          <Group>
-            はき
-          </Group>
-          <Group>
-            とも
-          </Group>
-        </GroupList>
+        <label>新規メンバー：<input id="newMember" type="text" placeholder="メンバー名"></input></label>
+        <button onClick={this.onClickAddMemberButton.bind(this)}>追加</button>
+        <MemberList>
+          {this.renderTodo()}
+        </MemberList>
       </SideArea>
     );
   }
@@ -38,6 +50,11 @@ const SideArea = styled.div`
   box-sizing: border-box;
 `;
 
-const GroupList = styled.ul``;
-
-const Group = styled.li``;
+const MemberList = styled.ul`
+    list-style: none;
+    padding: 0;
+    & > li {
+      cursor: pointer;
+      margin: 10px;
+    }
+`;

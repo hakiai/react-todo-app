@@ -7,24 +7,42 @@ export default class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      member: [
-        {
-          name: '吐合',
-          todos: [
-            '朝起きる',
-            '昼寝る'
-          ]
-        },
-        {
-          name: '友紀',
-          todos: [
-            '勉強する',
-            '昼食う',
-          ]
-        },
-      ]
+      members: [
+        "hakiai",
+        "tomonori",
+      ],
+      todos: {
+        hakiai: [
+          'eat breakfast',
+          'study English',
+        ],
+        tomonori: [],
+      },
+      // 現在表示しているメンバー
+      currentMember: 'hakiai',
+    };
+  }
 
-    }
+  changeCurrentMember(name) {
+    this.setState({ currentMember: name });
+  }
+
+  addNewMember(member) {
+    const newMembers = this.state.members
+    newMembers.push(member);
+    const newTodo = this.state.todos;
+    newTodo[member] = [];
+    this.setState({
+      members: newMembers,
+      todos: newTodo,
+      currentMember: member,
+    });
+  }
+
+  addTodo(todo) {
+    const todos = this.state.todos;
+    todos[this.state.currentMember].push(todo);
+    this.setState({ todo: todos });
   }
 
   render() {
@@ -32,7 +50,13 @@ export default class Main extends React.Component {
       <React.Fragment>
         <GlobalStyle />
         <HeaderArea />
-        <MainArea />
+        <MainArea members={this.state.members}
+          currentMember={this.state.currentMember}
+          changeCurrentMember={this.changeCurrentMember.bind(this)}
+          todos={this.state.todos}
+          addNewMember={this.addNewMember.bind(this)}
+          addTodo={this.addTodo.bind(this)}
+        />
       </React.Fragment>
     );
   }

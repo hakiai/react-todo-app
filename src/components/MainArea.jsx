@@ -7,13 +7,24 @@ import TodoArea from './TodoArea';
 export default class MainArea extends React.Component {
   constructor(props) {
     super(props);
+    console.log(this.props.changeCurrentMember);
   }
 
   render() {
     return (
       <MainContainer>
-        <SideBar />
-        <TodoArea />
+        <SideBar
+          members={this.props.members}
+          currentMember={this.props.currentMember}
+          changeCurrentMember={this.props.changeCurrentMember}
+          addNewMember={this.props.addNewMember}
+        />
+        <TodoArea
+          currentMember={this.props.currentMember}
+          currentMember={this.props.currentMember}
+          todos={this.props.todos}
+          addTodo={this.props.addTodo}
+        />
       </MainContainer>
     );
   }
