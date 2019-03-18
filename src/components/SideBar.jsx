@@ -4,15 +4,18 @@ import styled from 'styled-components';
 export default class SideBar extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props.changeCurrentMember);
   }
 
   renderTodo() {
     const displayMember = [];
     this.props.members.forEach((member, key) => {
       displayMember.push(
-        <li key={key} onClick={this.onClickMember.bind(this)}>
+        <li key={key} >
+          <button className={member} onClick={this.onClickMember.bind(this)}>change</button>
           {member}
+          <button className="deleteMember" onClick={() => {
+            this.onClickDeleteMember(key, member);
+          }}>×</button>
         </li>
       );
     });
@@ -26,14 +29,18 @@ export default class SideBar extends React.Component {
   }
 
   onClickMember(event) {
-    this.props.changeCurrentMember(event.target.innerHTML);
+    this.props.changeCurrentMember(event.target.className);
+  }
+
+  onClickDeleteMember(key, member) {
+    this.props.deleteMember(key, member);
   }
 
   render() {
     return (
       <SideArea>
-        <label>新規メンバー：<input id="newMember" type="text" placeholder="メンバー名"></input></label>
-        <button onClick={this.onClickAddMemberButton.bind(this)}>追加</button>
+        <label>new member：<input id="newMember" type="text" placeholder="members name"></input></label>
+        <button onClick={this.onClickAddMemberButton.bind(this)}>add new member</button>
         <MemberList>
           {this.renderTodo()}
         </MemberList>
@@ -43,18 +50,23 @@ export default class SideBar extends React.Component {
 }
 
 const SideArea = styled.div`
-  width: 200px;
+  width: 250px;
   height: 100%;
   background-color: #6FB3B7;
   padding: 10px;
   box-sizing: border-box;
+  #newMember {
+    width: 80%;
+  }
 `;
 
 const MemberList = styled.ul`
     list-style: none;
     padding: 0;
     & > li {
-      cursor: pointer;
       margin: 10px;
+      .deleteMember {
+        float: right;
+      }
     }
 `;

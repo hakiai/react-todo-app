@@ -10,9 +10,11 @@ export default class TodoArea extends React.Component {
     const todoList = [];
     this.props.todos[this.props.currentMember].forEach((todo, key) => {
       todoList.push(
-        <li key={key + 1}>
+        <li key={key + 1} ref={key} className="todo">
           {key + 1}. {todo}
-          <button>Delete</button>
+          <button className="deleteTodo" onClick={() => {
+            this.onClickDelete(key)
+          }}>Delete</button>
         </li>
       )
     });
@@ -23,6 +25,10 @@ export default class TodoArea extends React.Component {
     const newTodo = document.getElementById('todo_input');
     this.props.addTodo(newTodo.value);
     newTodo.value = '';
+  }
+
+  onClickDelete(key) {
+    this.props.deleteTodo(key);
   }
 
   render() {
@@ -42,7 +48,7 @@ export default class TodoArea extends React.Component {
 }
 
 const TodoContainer = styled.div`
-  width: calc(100% - 200px);
+  width: calc(100% - 250px);
   height: 100%;
   & > div {
     margin-top: 30px;
@@ -56,6 +62,9 @@ const TodoContainer = styled.div`
   & > ul > li {
     list-style: none;
     margin: 20px;
+    .deleteTodo {
+      float: right;
+    }
   }
 
 `

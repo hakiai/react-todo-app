@@ -39,10 +39,26 @@ export default class Main extends React.Component {
     });
   }
 
+  deleteMember(key, name) {
+    // メンバーの削除
+    const members = this.state.members;
+    members.splice(key, 1);
+
+    this.setState({
+      members: members,
+    });
+  }
+
   addTodo(todo) {
     const todos = this.state.todos;
     todos[this.state.currentMember].push(todo);
     this.setState({ todo: todos });
+  }
+
+  deleteTodo(key) {
+    const todos = this.state.todos;
+    todos[this.state.currentMember].splice(key, 1);
+    this.setState({ todos: todos });
   }
 
   render() {
@@ -56,6 +72,8 @@ export default class Main extends React.Component {
           todos={this.state.todos}
           addNewMember={this.addNewMember.bind(this)}
           addTodo={this.addTodo.bind(this)}
+          deleteTodo={this.deleteTodo.bind(this)}
+          deleteMember={this.deleteMember.bind(this)}
         />
       </React.Fragment>
     );
