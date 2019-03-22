@@ -4,6 +4,7 @@ import styled from 'styled-components';
 export default class SideBar extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props.members);
   }
 
   renderTodo() {

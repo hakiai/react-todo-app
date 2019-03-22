@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import SideBar from './SideBar';
-import TodoArea from './TodoArea';
+import SideBar from '../containers/SideBar';
+import TodoArea from '../containers/TodoArea';
 
 
 export default class MainArea extends React.Component {
@@ -12,20 +12,8 @@ export default class MainArea extends React.Component {
   render() {
     return (
       <MainContainer>
-        <SideBar
-          members={this.props.members}
-          currentMember={this.props.currentMember}
-          changeCurrentMember={this.props.changeCurrentMember}
-          addNewMember={this.props.addNewMember}
-          deleteMember={this.props.deleteMember}
-        />
-        <TodoArea
-          currentMember={this.props.currentMember}
-          currentMember={this.props.currentMember}
-          todos={this.props.todos}
-          addTodo={this.props.addTodo}
-          deleteTodo={this.props.deleteTodo}
-        />
+        <SideBar />
+        <TodoArea />
       </MainContainer>
     );
   }
