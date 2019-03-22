@@ -1,30 +1,30 @@
 const Actions = {
-  changeCurrent(value) {
+  changeCurrent: (value) => {
     return {
       type: 'CHANGE_CURRENT',
       value,
     }
   },
-  addMember(value) {
+  addMember: (value) => {
     return {
       type: 'ADD_MEMBER',
       value,
     }
   },
-  deleteMember(key, value) {
+  deleteMember: (key, value) => {
     return {
       type: 'DELETE_MEMBER',
       key,
       value,
     }
   },
-  addTodo(value) {
+  addTodo: (value) => {
     return {
       type: 'ADD_TODO',
       value
     }
   },
-  deleteTodo(key) {
+  deleteTodo: (key) => {
     return {
       type: 'DELETE_TODO',
       key,

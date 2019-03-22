@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const initialState = {
   members: [
     'hakiai',
@@ -16,31 +18,27 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
+  let _state = _.cloneDeep(state);
   switch (action.type) {
     case 'CHANGE_CURRENT': {
-      return {
-        currentMember: action.value,
-      }
+      _state.currentMember = action.value;
+      return _state;
     }
     case 'ADD_MEMBER': {
-      return {
-        members: state.members.push(action.value),
-      }
+      _state.members.push(action.value);
+      return _state;
     }
     case 'DELETE_MEMBER': {
-      return {
-        members: state.members.splice(action.key, 1),
-      }
+      _state.members.splice(action.key, 1);
+      return _state;
     }
     case 'ADD_TODO': {
-      return {
-        todos: state.todos[state.currentMember].push(action.value),
-      }
+      _state.todos[_state.currentMember].push(action.value);
+      return _state;
     }
     case 'DELETE_TODO': {
-      return {
-        todos: state.todos[state.currentMember].splice(action.key, 1),
-      }
+      _state.todos[_state.currentMember].splice(action.key, 1);
+      return _state;
     }
     default: {
       return state;

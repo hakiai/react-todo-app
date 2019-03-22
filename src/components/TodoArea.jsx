@@ -7,6 +7,7 @@ export default class TodoArea extends React.Component {
   }
 
   renderTodos() {
+    console.log(this.props.currentMember);
     const todoList = [];
     this.props.todos[this.props.currentMember].forEach((todo, key) => {
       todoList.push(

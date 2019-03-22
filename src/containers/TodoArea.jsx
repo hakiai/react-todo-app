@@ -9,10 +9,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addTodo(value) {
+    addTodo: (value) => {
       dispatch(Actions.addTodo(value));
     },
-    deleteTodo(key) {
+    deleteTodo: (key) => {
       dispatch(Actions.deleteTodo(key));
     }
   }

@@ -9,13 +9,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    changeCurrentMember(value) {
+    changeCurrentMember: (value) => {
       dispatch(Actions.changeCurrent(value))
     },
-    addNewMember(value) {
+    addNewMember: (value) => {
       dispatch(Actions.addMember(value))
     },
-    deleteMember(key, value) {
+    deleteMember: (key, value) => {
       dispatch(Actions.deleteMember(key, value))
     },
 
