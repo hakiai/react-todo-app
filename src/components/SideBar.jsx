@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 
 const SideBar = (props: Object) => {
@@ -20,7 +20,7 @@ const renderTodo = (props) => {
   props.members.forEach((member, key) => {
     displayMember.push(
       <li key={key} >
-        <button className={member} onClick={() => { onClickMember(props) }}>change</button>
+        <button onClick={() => { onClickMember(member, props) }}>change</button>
         {member}
         <button className="deleteMember" onClick={() => {
           onClickDeleteMember(props, key, member);
@@ -39,10 +39,12 @@ const onClickAddMemberButton = (props, event) => {
   }
 }
 
-const onClickMember = (props) => {
-  if (event instanceof MouseEvent) {
-    props.changeCurrentMember(event.target.className);
-  }
+type Target = EventTarget & {
+  className: string
+};
+
+const onClickMember = (member, props) => {
+  props.changeCurrentMember(member);
 }
 
 const onClickDeleteMember = (props, key, member) => {

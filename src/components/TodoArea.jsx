@@ -19,7 +19,6 @@ const TodoArea = (props: Object) => {
 }
 
 const renderTodos = (props) => {
-  console.log(props.currentMember);
   const todoList = [];
   props.todos[props.currentMember].forEach((todo, key) => {
     todoList.push(
