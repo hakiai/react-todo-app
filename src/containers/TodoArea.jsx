@@ -1,3 +1,5 @@
+// @flow
+
 import { connect } from 'react-redux';
 
 import Actions from '../actions/MainActions';
@@ -9,7 +11,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addTodo: (value) => {
+    addTodo: (value: HTMLElement) => {
       dispatch(Actions.addTodo(value));
     },
     deleteTodo: (key) => {

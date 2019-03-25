@@ -1,52 +1,52 @@
+// @flow
+
 import React from 'react';
 import styled from 'styled-components';
 
-export default class TodoArea extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const TodoArea = (props: Object) => {
+  return (
+    <TodoContainer>
+      <h1>{props.currentMember}</h1>
+      <div>
+        <input id="todo_input" type="text"></input>
+        <button onClick={() => { onClickAddTodo(props) }}>add Todo</button>
+      </div>
+      <ul>
+        {renderTodos(props)}
+      </ul>
+    </TodoContainer>
+  )
+}
 
-  renderTodos() {
-    console.log(this.props.currentMember);
-    const todoList = [];
-    this.props.todos[this.props.currentMember].forEach((todo, key) => {
-      todoList.push(
-        <li key={key + 1} ref={key} className="todo">
-          {key + 1}. {todo}
-          <button className="deleteTodo" onClick={() => {
-            this.onClickDelete(key)
-          }}>Delete</button>
-        </li>
-      )
-    });
-    return todoList;
-  }
+const renderTodos = (props) => {
+  console.log(props.currentMember);
+  const todoList = [];
+  props.todos[props.currentMember].forEach((todo, key) => {
+    todoList.push(
+      <li key={key + 1} className="todo">
+        {key + 1}. {todo}
+        <button className="deleteTodo" onClick={() => {
+          onClickDelete(props, key)
+        }}>Delete</button>
+      </li>
+    )
+  });
+  return todoList;
+}
 
-  onClickAddTodo() {
-    const newTodo = document.getElementById('todo_input');
-    this.props.addTodo(newTodo.value);
+const onClickAddTodo = (props) => {
+  const newTodo: ?HTMLElement = document.getElementById('todo_input');
+  if (newTodo instanceof HTMLInputElement) {
+    props.addTodo(newTodo.value);
     newTodo.value = '';
   }
-
-  onClickDelete(key) {
-    this.props.deleteTodo(key);
-  }
-
-  render() {
-    return (
-      <TodoContainer>
-        <h1>{this.props.currentMember}</h1>
-        <div>
-          <input id="todo_input" type="text"></input>
-          <button onClick={this.onClickAddTodo.bind(this)}>add Todo</button>
-        </div>
-        <ul>
-          {this.renderTodos()}
-        </ul>
-      </TodoContainer>
-    )
-  }
 }
+
+const onClickDelete = (props, key) => {
+  props.deleteTodo(key);
+}
+
+export default TodoArea;
 
 const TodoContainer = styled.div`
   width: calc(100% - 250px);

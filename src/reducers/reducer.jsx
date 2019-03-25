@@ -1,3 +1,5 @@
+// @flow
+
 import _ from 'lodash';
 
 const initialState = {
@@ -17,7 +19,7 @@ const initialState = {
   currentMember: 'hakiai',
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state: Object = initialState, action: Object) => {
   let _state = _.cloneDeep(state);
   switch (action.type) {
     case 'CHANGE_CURRENT': {
