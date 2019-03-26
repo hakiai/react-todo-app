@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const SideBar = (props: Object) => {
   return (
@@ -20,8 +21,7 @@ const renderTodo = (props) => {
   props.members.forEach((member, key) => {
     displayMember.push(
       <li key={key} >
-        <button onClick={() => { onClickMember(member, props) }}>change</button>
-        {member}
+        <Link to={`/${member}`}>{member}</Link>
         <button className="deleteMember" onClick={() => {
           onClickDeleteMember(props, key, member);
         }}>×</button>
@@ -33,7 +33,7 @@ const renderTodo = (props) => {
 
 const onClickAddMemberButton = (props, event) => {
   const newMemberName = document.getElementById('newMember');
-  if (newMemberName instanceof HTMLInputElement) {
+  if (newMemberName instanceof HTMLInputElement && newMemberName.value !== "") {
     props.addNewMember(newMemberName.value);
     newMemberName.value = "";
   }
@@ -42,10 +42,6 @@ const onClickAddMemberButton = (props, event) => {
 type Target = EventTarget & {
   className: string
 };
-
-const onClickMember = (member, props) => {
-  props.changeCurrentMember(member);
-}
 
 const onClickDeleteMember = (props, key, member) => {
   props.deleteMember(key, member);

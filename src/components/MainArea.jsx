@@ -4,12 +4,15 @@ import React from 'react';
 import styled from 'styled-components';
 import SideBar from '../containers/SideBar';
 import TodoArea from '../containers/TodoArea';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const MainArea = () => {
   return (
     <MainContainer>
-      <SideBar />
-      <TodoArea />
+      <Router>
+        <SideBar />
+        <Route path="/:member" component={TodoArea} />
+      </Router>
     </MainContainer>
   );
 }

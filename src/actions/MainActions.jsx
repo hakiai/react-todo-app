@@ -1,10 +1,4 @@
 const Actions = {
-  changeCurrent: (value) => {
-    return {
-      type: 'CHANGE_CURRENT',
-      value,
-    }
-  },
   addMember: (value) => {
     return {
       type: 'ADD_MEMBER',
@@ -18,16 +12,18 @@ const Actions = {
       value,
     }
   },
-  addTodo: (value) => {
+  addTodo: (value, currentMember) => {
     return {
       type: 'ADD_TODO',
-      value
+      value,
+      currentMember,
     }
   },
-  deleteTodo: (key) => {
+  deleteTodo: (key, currentMember) => {
     return {
       type: 'DELETE_TODO',
       key,
+      currentMember
     }
   }
 }

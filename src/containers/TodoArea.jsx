@@ -11,11 +11,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addTodo: (value: HTMLElement) => {
-      dispatch(Actions.addTodo(value));
+    addTodo: (value: HTMLElement, currentMember) => {
+      dispatch(Actions.addTodo(value, currentMember));
     },
-    deleteTodo: (key) => {
-      dispatch(Actions.deleteTodo(key));
+    deleteTodo: (key, currentMember) => {
+      dispatch(Actions.deleteTodo(key, currentMember));
     }
   }
 }

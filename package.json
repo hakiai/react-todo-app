@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --hot --inline --watch-content-base --content-base public/ --open-page index.html",
+    "start": "webpack-dev-server --hot --inline --watch-content-base --content-base public/",
     "build": "webpack --mode=development",
     "test": "jest",
     "flow": "flow"
