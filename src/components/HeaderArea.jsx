@@ -1,19 +1,17 @@
+// @flow
+
 import React from 'react';
 import styled from 'styled-components';
 
-export default class HeaderArea extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <Header>
-        <Title>Todo App</Title>
-      </Header>
-    );
-  }
+const HeaderArea = () => {
+  return (
+    <Header>
+      <Title>Todo App</Title>
+    </Header>
+  );
 }
+
+export default HeaderArea;
 
 const Header = styled.header`
   width: 100%;

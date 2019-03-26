@@ -22,7 +22,8 @@ module.exports = {
         options: {
           presets: [
             '@babel/preset-env',
-            '@babel/preset-react'
+            '@babel/preset-react',
+            '@babel/preset-flow',
           ]
         }
       }]
@@ -30,5 +31,8 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+  },
+  devServer: {
+    historyApiFallback: true,
   }
 };

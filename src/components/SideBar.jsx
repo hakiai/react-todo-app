@@ -1,53 +1,53 @@
-import React from 'react';
+// @flow
+
+import * as React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-export default class SideBar extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const SideBar = (props: Object) => {
+  return (
+    <SideArea>
+      <label>new member：<input id="newMember" type="text" placeholder="members name"></input></label>
+      <button onClick={() => { onClickAddMemberButton(props) }}>add new member</button>
+      <MemberList>
+        {renderTodo(props)}
+      </MemberList>
+    </SideArea>
+  );
+}
 
-  renderTodo() {
-    const displayMember = [];
-    this.props.members.forEach((member, key) => {
-      displayMember.push(
-        <li key={key} >
-          <button className={member} onClick={this.onClickMember.bind(this)}>change</button>
-          {member}
-          <button className="deleteMember" onClick={() => {
-            this.onClickDeleteMember(key, member);
-          }}>×</button>
-        </li>
-      );
-    });
-    return displayMember;
-  }
+const renderTodo = (props) => {
+  const displayMember = [];
+  props.members.forEach((member, key) => {
+    displayMember.push(
+      <li key={key} >
+        <Link to={`/${member}`}>{member}</Link>
+        <button className="deleteMember" onClick={() => {
+          onClickDeleteMember(props, key, member);
+        }}>×</button>
+      </li>
+    );
+  });
+  return displayMember;
+}
 
-  onClickAddMemberButton() {
-    const newMemberName = document.getElementById('newMember');
-    this.props.addNewMember(newMemberName.value);
+const onClickAddMemberButton = (props, event) => {
+  const newMemberName = document.getElementById('newMember');
+  if (newMemberName instanceof HTMLInputElement && newMemberName.value !== "") {
+    props.addNewMember(newMemberName.value);
     newMemberName.value = "";
   }
-
-  onClickMember(event) {
-    this.props.changeCurrentMember(event.target.className);
-  }
-
-  onClickDeleteMember(key, member) {
-    this.props.deleteMember(key, member);
-  }
-
-  render() {
-    return (
-      <SideArea>
-        <label>new member：<input id="newMember" type="text" placeholder="members name"></input></label>
-        <button onClick={this.onClickAddMemberButton.bind(this)}>add new member</button>
-        <MemberList>
-          {this.renderTodo()}
-        </MemberList>
-      </SideArea>
-    );
-  }
 }
+
+type Target = EventTarget & {
+  className: string
+};
+
+const onClickDeleteMember = (props, key, member) => {
+  props.deleteMember(key, member);
+}
+
+export default SideBar;
 
 const SideArea = styled.div`
   width: 250px;

@@ -1,51 +1,57 @@
+// @flow
+
 import React from 'react';
 import styled from 'styled-components';
 
-export default class TodoArea extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  renderTodos() {
-    const todoList = [];
-    this.props.todos[this.props.currentMember].forEach((todo, key) => {
-      todoList.push(
-        <li key={key + 1} ref={key} className="todo">
-          {key + 1}. {todo}
-          <button className="deleteTodo" onClick={() => {
-            this.onClickDelete(key)
-          }}>Delete</button>
-        </li>
-      )
-    });
-    return todoList;
-  }
-
-  onClickAddTodo() {
-    const newTodo = document.getElementById('todo_input');
-    this.props.addTodo(newTodo.value);
-    newTodo.value = '';
-  }
-
-  onClickDelete(key) {
-    this.props.deleteTodo(key);
-  }
-
-  render() {
+const TodoArea = (props: Object) => {
+  if (props.members.indexOf(props.match.params.member) >= 0) {
     return (
       <TodoContainer>
-        <h1>{this.props.currentMember}</h1>
+        <h1>{props.members.indexOf(props.match.params.member >= 0) ? props.match.params.member : ''}</h1>
         <div>
           <input id="todo_input" type="text"></input>
-          <button onClick={this.onClickAddTodo.bind(this)}>add Todo</button>
+          <button onClick={() => { onClickAddTodo(props) }}>add Todo</button>
         </div>
         <ul>
-          {this.renderTodos()}
+          {renderTodos(props)}
         </ul>
       </TodoContainer>
     )
+  } else {
+    return (
+      <p>メンバーを追加、選択してください</p>
+    )
   }
 }
+
+const renderTodos = (props) => {
+  const todoList = [];
+  props.todos[props.match.params.member].forEach((todo, key) => {
+    todoList.push(
+      <li key={key + 1} className="todo">
+        {key + 1}. {todo}
+        <button className="deleteTodo" onClick={() => {
+          onClickDelete(props, key)
+        }}>Delete</button>
+      </li>
+    )
+  });
+  return todoList;
+}
+
+const onClickAddTodo = (props) => {
+  const newTodo: ?HTMLElement = document.getElementById('todo_input');
+  if (newTodo instanceof HTMLInputElement && newTodo.value !== "") {
+    props.addTodo(newTodo.value, props.match.params.member);
+    newTodo.value = '';
+  }
+}
+
+const onClickDelete = (props, key) => {
+  props.deleteTodo(key, props.match.params.member);
+}
+
+export default TodoArea;
 
 const TodoContainer = styled.div`
   width: calc(100% - 250px);
